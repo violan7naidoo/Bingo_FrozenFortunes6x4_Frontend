@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 100% 8%;
+    --foreground: 0 0% 98%;
+    --card: 220 20% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 220 20% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 220 100% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 220 50% 15%;
+    --secondary-foreground: 220 80% 80%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 10% 63%;
+    --accent: 220 80% 80%;
+    --accent-foreground: 220 100% 20%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 20% 15%;
+    --input: 220 20% 15%;
+    --ring: 220 80% 80%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 220 100% 8%;
+    --foreground: 0 0% 98%;
+    --card: 220 20% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 220 20% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 220 100% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 220 50% 15%;
+    --secondary-foreground: 220 80% 80%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 10% 63%;
+    --accent: 220 80% 80%;
+    --accent-foreground: 220 100% 20%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 20% 15%;
+    --input: 220 20% 15%;
+    --ring: 220 80% 80%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground relative min-h-screen;
+    background-image: url('/images/backround/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll; /* avoid fixed on mobile to reduce repaint cost */
+    background-repeat: no-repeat;
+  }
+
+  /* Ensure content is above the background */
+  #__next {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes spin-blue-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 15px rgba(0, 191, 255, 0.7), /* Lighter blue glow */
+      0 0 30px rgba(0, 191, 255, 0.4),
+      inset 0 0 15px rgba(0, 191, 255, 0.2); /* Inner glow */
+  }
+  50% {
+    box-shadow: 
+      0 0 25px rgba(0, 191, 255, 0.9), 
+      0 0 50px rgba(0, 191, 255, 0.6),
+      inset 0 0 20px rgba(0, 191, 255, 0.4);
+  }
+}
+
+.btn-spin-blue-glow {
+  animation: spin-blue-pulse 2s infinite ease-in-out;
+}
+
+/* Inset Shadow for Spinning/Disabled Button */
+.inset-shadow-blue {
+  box-shadow: 
+    inset 0 0 15px rgba(0, 0, 0, 0.7), /* Dark inner shadow */
+    inset 0 0 25px rgba(0, 100, 200, 0.3); /* Subtle blue inner glow */
+}
+
+/* Slow Spin for icons */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 2s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh);
+  }
+  100% {
+    transform: translateY(110vh);
+  }
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px; /* Start slightly off-screen */
+  background-color: white;
+  border-radius: 50%;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+
+.control-panel-card {
+  background: rgba(0, 0, 0, 0.2); /* Very dark, semi-transparent background */
+  border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); /* Outer cyan glow */
+}
+
+/* Apply expensive backdrop blur only on screens >= 640px */
+@media (min-width: 640px) {
+  .control-panel-card {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+.info-display-bg {
+  background: rgba(0, 0, 0, 0.4); /* Darker, more transparent background for info displays */
+  border: 1px solid rgba(0, 255, 255, 0.1); /* Very subtle cyan border */
+  box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.2), 0 0 5px rgba(0, 255, 255, 0.1); /* Inner and subtle outer glow */
+}
+
+.spin-button-glow {
+  background: radial-gradient(circle, rgba(78,168,230,1) 0%, rgba(30,120,190,1) 100%); /* Blue gradient background */
+  border: 2px solid #0055ff; /* blue border */
+  box-shadow: 
+    0 0 15px rgba(0, 221, 255, 0.8), /* Outer yellow glow */
+    inset 0 0 10px rgba(0, 191, 255, 0.5), /* Inner blue glow */
+    inset 0 0 20px rgba(0, 255, 255, 0.3); /* Deeper inner blue glow */
+  text-shadow: 0 0 8px rgba(255,255,255,0.7); /* Text glow for SPIN */
+}
+
+.spin-button-glow:not(:disabled):hover {
+  box-shadow: 
+    0 0 20px rgb(0, 51, 255), /* Enhanced outer yellow glow on hover */
+    inset 0 0 15px rgba(0, 98, 255, 0.7),
+    inset 0 0 30px rgba(0, 85, 255, 0.5);
+  transform: scale(1.05); /* Slight scale up on hover */
+}
+
+.spin-button-disabled {
+    background: rgba(0, 51, 255, 0.952); /* Darker gray for disabled state */
+    border: 2px solid #777;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.auto-spin-disabled {
+    background: rgba(0, 0, 0, 0.3); /* Dark, dimmed background */
+    border: 2px solid rgba(0, 255, 255, 0.2); /* Very subtle cyan border */
+    box-shadow: 
+        0 0 5px rgba(0, 255, 255, 0.1), /* Very subtle outer glow */
+        inset 0 0 5px rgba(0, 0, 0, 0.5); /* Dark inner shadow */
+    cursor: pointer;
+    opacity: 0.6; /* Dimmed appearance */
+}
+
+.auto-spin-disabled:hover {
+    opacity: 0.8; /* Slightly brighter on hover */
+    box-shadow: 
+        0 0 8px rgba(0, 255, 255, 0.2),
+        inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.cyan-text-glow {
+    color: #00e5ff; /* Bright cyan */
+    text-shadow: 0 0 8px rgba(0, 89, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.5); /* Stronger cyan glow */
+}
+
+.subtle-cyan-text {
+    color: #88ffff; /* Lighter cyan for labels */
+    opacity: 0.7; /* Slightly faded */
+    text-shadow: 0 0 3px rgba(136, 255, 255, 0.5);
+}
+
+.bet-button-icon {
+    color: #00e5ff; /* Bright cyan for icons */
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.6);
+}
+
+/* Animation for the spinning icon */
+.animate-spin-slow {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Frosted title styling */
+.frosted-title {
+  background: linear-gradient(180deg, #aaffff 0%, #44ddff 50%, #00aaff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 
+    0 0 8px rgba(0, 221, 255, 0.4),
+    0 0 16px rgba(0, 221, 255, 0.3),
+    0 0 24px rgba(0, 221, 255, 0.2),
+    1px 1px 2px rgba(0, 51, 153, 0.4),
+    2px 2px 3px rgba(0, 34, 102, 0.3);
+}
+
+
+/* Free Spins Border Animations */
+@keyframes free-spins-border-flow {
+  0% {
+    border-color: rgba(0, 191, 255, 0.8);
+    box-shadow: 
+      0 0 20px rgba(0, 191, 255, 0.6),
+      0 0 40px rgba(0, 191, 255, 0.4),
+      inset 0 0 20px rgba(0, 191, 255, 0.2);
+  }
+  25% {
+    border-color: rgba(0, 255, 255, 0.9);
+    box-shadow: 
+      0 0 30px rgba(0, 255, 255, 0.7),
+      0 0 60px rgba(0, 255, 255, 0.5),
+      inset 0 0 25px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    border-color: rgba(0, 150, 255, 0.8);
+    box-shadow: 
+      0 0 25px rgba(0, 150, 255, 0.6),
+      0 0 50px rgba(0, 150, 255, 0.4),
+      inset 0 0 20px rgba(0, 150, 255, 0.2);
+  }
+  75% {
+    border-color: rgba(0, 255, 255, 0.9);
+    box-shadow: 
+      0 0 30px rgba(0, 255, 255, 0.7),
+      0 0 60px rgba(0, 255, 255, 0.5),
+      inset 0 0 25px rgba(0, 255, 255, 0.3);
+  }
+  100% {
+    border-color: rgba(0, 191, 255, 0.8);
+    box-shadow: 
+      0 0 20px rgba(0, 191, 255, 0.6),
+      0 0 40px rgba(0, 191, 255, 0.4),
+      inset 0 0 20px rgba(0, 191, 255, 0.2);
+  }
+}
+
+@keyframes free-spins-light-flow {
+  0% {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(0, 191, 255, 0.8) 20%, 
+      rgba(0, 255, 255, 1) 50%, 
+      rgba(0, 191, 255, 0.8) 80%, 
+      transparent 100%);
+    transform: translateX(-100%);
+  }
+  100% {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(0, 191, 255, 0.8) 20%, 
+      rgba(0, 255, 255, 1) 50%, 
+      rgba(0, 191, 255, 0.8) 80%, 
+      transparent 100%);
+    transform: translateX(100%);
+  }
+}
+
+.free-spins-border {
+  animation: free-spins-border-flow 3s infinite ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.free-spins-border.spinning {
+  animation: none;
+}
+
+.free-spins-border.spinning::before,
+.free-spins-border.spinning::after {
+  animation: none;
+  opacity: 0;
+}
+
+.free-spins-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  animation: free-spins-light-flow 2s infinite linear;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.free-spins-border::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, 
+    rgba(0, 191, 255, 0.3) 0%, 
+    rgba(0, 255, 255, 0.5) 25%, 
+    rgba(0, 150, 255, 0.3) 50%, 
+    rgba(0, 255, 255, 0.5) 75%, 
+    rgba(0, 191, 255, 0.3) 100%);
+  animation: free-spins-light-flow 2.5s infinite linear reverse;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
